@@ -12,7 +12,9 @@ import android.widget.Toast;
 
 
 import com.example.diplomaapp.api.AuthApi;
+import com.example.diplomaapp.api.AuthToken;
 import com.example.diplomaapp.api.NetworkService;
+import com.example.diplomaapp.archieve.Login;
 import com.example.diplomaapp.entity.User;
 
 import java.io.UnsupportedEncodingException;
@@ -41,11 +43,13 @@ public class LoginActivity extends AppCompatActivity {
 
     public void authUser(View view) {
         String username = "admin";
-        //etLogin.getText().toString();
         String password = "admin";
-        //etPassword.getText().toString();
 
-        String authToken = createAuthToken(username, password);
+
+//        String password = etPassword.getText().toString();
+//        String username = etLogin.getText().toString();
+
+        String authToken = AuthToken.createAuthToken(username, password);
 
         NetworkService networkService = NetworkService.getInstance();
         AuthApi api = networkService.getAuthApi();
@@ -60,10 +64,20 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println(response.body());
                 if (response.isSuccessful()){
 
-                    if (response.body().matches("succesfull")){
+                    if (response.body().contains("succesfull")){
                         Toast.makeText(LoginActivity.this, "Succesfully Logged In", Toast.LENGTH_SHORT).show();
-                        Intent i2 = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(i2);
+
+                        if (response.body().contains("ADMIN")){
+                            Intent i2 = new Intent(LoginActivity.this, AdminActivity.class);
+                            i2.putExtra("username", username);
+                            i2.putExtra("password", password);
+                            startActivity(i2);
+                        } else if(response.body().contains("CLIENT")){
+                            System.out.println("CLIENT");
+                        } else if (response.body().contains("DOCTOR")){
+                            System.out.println("DOCTOR");
+                        }
+
                     }else{
                         Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
                     }
@@ -81,16 +95,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private String createAuthToken(String email, String password){
-        byte[] data = new byte[0];
-        try{
-            data = (email + ":" + password).getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e){
-            e.printStackTrace();
-        }
 
-        return "Basic " +  android.util.Base64.encodeToString(data, Base64.NO_WRAP);
-    }
 
 
 

@@ -14,7 +14,7 @@ public class NetworkService {
 
     private NetworkService() {
         Gson gson = new GsonBuilder()
-                .setLenient()
+                .setLenient().setDateFormat("yyyy-MM-dd")
                 .create();
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -33,8 +33,11 @@ public class NetworkService {
         return retrofit.create(AuthApi.class);
     }
 
-        public UsersApi getPostApi(){
-        return retrofit.create(UsersApi.class);
+    public UserApi getUserApi(){
+        return retrofit.create(UserApi.class);
+    }
+    public RoleApi getRoleApi(){
+        return retrofit.create(RoleApi.class);
     }
 //}
 //public class NetworkService {
