@@ -5,11 +5,15 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import com.example.diplomaapp.api.DateJsonAdapter;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+
 
 public class User implements Parcelable {
 
@@ -43,6 +47,8 @@ public class User implements Parcelable {
 
     @Expose
     @SerializedName("birthDate")
+    //@JsonAdapter(DateJsonAdapter.class)
+
     private Date birthDate;
 
     @Expose
@@ -193,5 +199,20 @@ public class User implements Parcelable {
         parcel.writeString(firstName);
         parcel.writeString(lastName);
         parcel.writeByte((byte) (enabled ? 1 : 0));
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", role_id=" + role_id +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", enabled=" + enabled +
+                '}';
     }
 }
