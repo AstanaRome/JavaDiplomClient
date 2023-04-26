@@ -13,7 +13,7 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Date;
 
-public class Record  {
+public class Record implements Parcelable {
 
 
     @Expose
@@ -38,6 +38,23 @@ public class Record  {
     private Doctor doctor;
 
 
+    protected Record(Parcel in) {
+        id = in.readInt();
+        user = in.readParcelable(User.class.getClassLoader());
+        doctor = in.readParcelable(Doctor.class.getClassLoader());
+    }
+
+    public static final Creator<Record> CREATOR = new Creator<Record>() {
+        @Override
+        public Record createFromParcel(Parcel in) {
+            return new Record(in);
+        }
+
+        @Override
+        public Record[] newArray(int size) {
+            return new Record[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -124,4 +141,15 @@ public class Record  {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeParcelable(user, i);
+        parcel.writeParcelable(doctor, i);
+    }
 }

@@ -12,6 +12,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface RecordApi {
@@ -21,6 +22,9 @@ public interface RecordApi {
 
     @POST("/records")
     Call<Record> saveRecord(@Header("Authorization") String authToken, @Body Record record);
+
+    @PUT("/records")
+    Call<Record> updateRecord(@Header("Authorization") String authToken, @Body Record record);
     @DELETE("/records/{id}")
     Call<ResponseBody> deleteRecord(@Header("Authorization") String authToken, @Path("id") int userId);
 

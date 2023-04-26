@@ -55,62 +55,62 @@ public class ShowAllRecordsFragment extends Fragment implements ClickInterface {
 
         fillAdapter();
 
-//        rvRecords.addOnItemTouchListener(
-//                new RecyclerItemClickListener(getContext(), rvRecords ,new RecyclerItemClickListener.OnItemClickListener() {
-//                    @Override public void onItemClick(View view, int position) {
-//
-//                        Fragment Fragment_Record_Info   =  new FullInfoRecordFragement();
-//                        FragmentManager fragmentManager = getFragmentManager();
-//                        fragmentManager.beginTransaction()
-//                                .replace(R.id.fragmentContainer, Fragment_Record_Info, "TAG")
-//                                .commit();
-//                        Record user = users.get(position);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("username", username);
-//                        bundle.putString("password", password);
-//                        bundle.putParcelable("user",  user);  // Key, value
-//                        Fragment_Record_Info.setArguments(bundle);
-//                    }
-//
-//                    @Override public void onLongItemClick(View view, int position) {
-//                        // do whatever
-//                    }
-//                })
-//        );
+        rvRecords.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), rvRecords ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+
+                        Fragment Fragment_Record_Info   =  new FullInfoRecordFragment();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainer, Fragment_Record_Info, "TAG")
+                                .commit();
+                        Record record = records.get(position);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("username", username);
+                        bundle.putString("password", password);
+                        bundle.putParcelable("record",  record);  // Key, value
+                        Fragment_Record_Info.setArguments(bundle);
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
 
 
 
-//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-//            @Override
-//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                // this method is called
-//                // when the item is moved.
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                // this method is called when we swipe our item to right direction.
-//                // on below line we are getting the item at a particular position.
-//                Record deletedCourse = records.get(viewHolder.getAdapterPosition());
-//                deleteRecord(deletedCourse);
-//                // below line is to get the position
-//                // of the item at that position.
-//                int position = viewHolder.getAdapterPosition();
-//
-//                // this method is called when item is swiped.
-//                // below line is to remove item from our array list.
-//                records.remove(viewHolder.getAdapterPosition());
-//
-//                // below line is to notify our item is removed from adapter.
-//                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-//
-//                // below line is to display our snackbar with action.
-//
-//            }
-//            // at last we are adding this
-//            // to our recycler view.
-//        }).attachToRecyclerView(rvRecords);
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                // this method is called
+                // when the item is moved.
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                // this method is called when we swipe our item to right direction.
+                // on below line we are getting the item at a particular position.
+                Record deletedCourse = records.get(viewHolder.getAdapterPosition());
+                deleteRecord(deletedCourse);
+                // below line is to get the position
+                // of the item at that position.
+                int position = viewHolder.getAdapterPosition();
+
+                // this method is called when item is swiped.
+                // below line is to remove item from our array list.
+                records.remove(viewHolder.getAdapterPosition());
+
+                // below line is to notify our item is removed from adapter.
+                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+
+                // below line is to display our snackbar with action.
+
+            }
+            // at last we are adding this
+            // to our recycler view.
+        }).attachToRecyclerView(rvRecords);
     }
 
 

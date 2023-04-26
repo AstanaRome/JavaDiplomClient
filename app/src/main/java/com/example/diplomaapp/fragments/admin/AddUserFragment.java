@@ -2,13 +2,16 @@ package com.example.diplomaapp.fragments.admin;
 
 import static com.example.diplomaapp.api.AuthToken.createAuthToken;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,8 +25,13 @@ import com.example.diplomaapp.api.UserApi;
 import com.example.diplomaapp.entity.Role;
 import com.example.diplomaapp.entity.User;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +49,8 @@ public class AddUserFragment extends Fragment {
     private List<Role> roles;
     private Spinner spRole;
     private Spinner spEnabled;
+    private TextView tvUserBirthdayAddAdmin;
+    private Button btnUserAddDateAdmin;
 
     private User user;
     private String password;
@@ -48,7 +58,7 @@ public class AddUserFragment extends Fragment {
 
 
     public AddUserFragment() {
-        super(R.layout.fragment_user_add);
+        super(R.layout.fragment_admin_user_add);
     }
 
     @Override
@@ -61,9 +71,14 @@ public class AddUserFragment extends Fragment {
         etPassword = view.findViewById(R.id.etPasswordAdd);
         etEmail = view.findViewById(R.id.etEmailAdd);
         btnAddClient = view.findViewById(R.id.btnSaveAdd);
+        btnUserAddDateAdmin = view.findViewById(R.id.btnUserAddDateAdmin);
         spRole = view.findViewById(R.id.spRole);
         spEnabled = view.findViewById(R.id.spEnabled);
+        tvUserBirthdayAddAdmin = view.findViewById(R.id.tvUserBirthdayAddAdmin);
         btnAddClient.setOnClickListener(this::change);
+
+
+
         Bundle bundle = getArguments();
         if (bundle != null) {
             username = bundle.getString("username");
@@ -72,6 +87,40 @@ public class AddUserFragment extends Fragment {
             System.out.println(password);
         }
 
+        btnUserAddDateAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // on below line we are getting
+                // the instance of our calendar.
+                final Calendar c = Calendar.getInstance();
+
+                // on below line we are getting
+                // our day, month and year.
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                // on below line we are creating a variable for date picker dialog.
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        // on below line we are passing context.
+                        getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // on below line we are setting date to our text view.
+                                tvUserBirthdayAddAdmin.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth );
+
+                            }
+                        },
+                        // on below line we are passing year,
+                        // month and day for selected date in our date picker.
+                        year, month, day);
+                // at last we are calling show to
+                // display our date picker dialog.
+                datePickerDialog.show();
+            }
+        });
         spEnabled.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -120,9 +169,19 @@ public class AddUserFragment extends Fragment {
         user.setEmail(etEmail.getText().toString());
         user.setUserName(etUsername.getText().toString());
         user.setPassword(etPassword.getText().toString());
+        if (tvUserBirthdayAddAdmin.getText().toString() != ""){{
+            String date = tvUserBirthdayAddAdmin.getText().toString();
+            SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            Date date2;
+            try {
+                date2 = formatter1.parse(date);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            user.setBirthDate(date2);
+        }}
         saveClient(user);
-
-
     }
 
 

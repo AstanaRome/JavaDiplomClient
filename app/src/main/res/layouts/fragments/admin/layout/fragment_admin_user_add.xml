@@ -171,14 +171,26 @@
                     android:inputType="textPersonName"
                     android:textSize="20sp" />
 
-                <EditText
-                    android:id="@+id/etBirthdayAdd"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:inputType="textPersonName"
-                    android:textSize="20sp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvUserBirthdayAddAdmin"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textAlignment="viewStart" />
+
+                    <Button
+                        android:id="@+id/btnUserAddDateAdmin"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:text="Date" />
+                </LinearLayout>
 
                 <Spinner
                     android:id="@+id/spRole"

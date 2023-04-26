@@ -3,8 +3,6 @@ package com.example.diplomaapp.fragments.admin;
 import static com.example.diplomaapp.api.AuthToken.createAuthToken;
 
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,15 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diplomaapp.R;
 import com.example.diplomaapp.adapters.UserAdapter;
-import com.example.diplomaapp.api.AuthToken;
 import com.example.diplomaapp.api.NetworkService;
 import com.example.diplomaapp.api.UserApi;
 import com.example.diplomaapp.entity.User;
 import com.example.diplomaapp.test.ClickInterface;
 import com.example.diplomaapp.test.RecyclerItemClickListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -37,7 +32,7 @@ import retrofit2.Response;
 public class ShowAllUsersFragment extends Fragment implements ClickInterface {
 
     public ShowAllUsersFragment(){
-        super(R.layout.fragment_list);
+        super(R.layout.fragment_list_users);
     }
     private RecyclerView rvUsers;
     private UserAdapter adapter;

@@ -33,7 +33,7 @@
                     android:layout_width="345dp"
                     android:layout_height="0dp"
                     android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toTopOf="@+id/btnRecordAddSaveAdmin"
+                    app:layout_constraintBottom_toTopOf="@+id/btnAdminRecordFullInfoSave"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -80,6 +80,16 @@
                                 android:textAlignment="textEnd"
                                 android:textSize="20sp" />
 
+                            <TextView
+                                android:id="@+id/textView14"
+                                android:layout_width="match_parent"
+                                android:layout_height="42dp"
+                                android:layout_marginTop="40dp"
+                                android:gravity="center"
+                                android:text="User:"
+                                android:textAlignment="textEnd"
+                                android:textSize="20sp" />
+
                         </LinearLayout>
 
                         <LinearLayout
@@ -89,13 +99,14 @@
                             android:orientation="vertical">
 
                             <Spinner
-                                android:id="@+id/spRecordAddDoctorAdmin"
+                                android:id="@+id/spAdminRecordShowInfoDoctor"
                                 android:layout_width="match_parent"
                                 android:layout_height="42dp"
                                 android:layout_marginTop="60dp"
                                 android:gravity="center"
                                 android:textAlignment="textStart"
-                                android:textSize="20sp" />
+                                android:textSize="20sp"
+                                />
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
@@ -104,22 +115,24 @@
 
                                 <LinearLayout
                                     android:layout_width="228dp"
-                                    android:layout_height="40dp"
+                                    android:layout_height="42dp"
                                     android:orientation="horizontal"
                                     tools:layout_editor_absoluteX="1dp"
                                     tools:layout_editor_absoluteY="1dp">
 
                                     <TextView
-                                        android:id="@+id/tvRecordDateAdmin"
+                                        android:id="@+id/tvAdminRecordShowInfoDay"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_weight="1"
                                         android:gravity="center"
                                         android:textAlignment="textStart"
-                                        android:textSize="20sp"/>
+
+
+                                        android:textSize="20sp" />
 
                                     <Button
-                                        android:id="@+id/btnRecordDateAdmin"
+                                        android:id="@+id/btnAdminRecordShowInfoDate"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_weight="2"
@@ -128,7 +141,16 @@
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <Spinner
-                                android:id="@+id/spRecordAddTimeAdmin"
+                                android:id="@+id/spAdminRecordShowInfoTime"
+                                android:layout_width="match_parent"
+                                android:layout_height="42dp"
+                                android:layout_marginTop="40dp"
+                                android:gravity="center"
+                                android:textAlignment="textStart"
+                                android:textSize="20sp" />
+
+                            <Spinner
+                                android:id="@+id/spAdminRecordShowInfoUser"
                                 android:layout_width="match_parent"
                                 android:layout_height="42dp"
                                 android:layout_marginTop="40dp"
@@ -141,7 +163,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <Button
-                    android:id="@+id/btnRecordAddSaveAdmin"
+                    android:id="@+id/btnAdminRecordFullInfoSave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="165dp"

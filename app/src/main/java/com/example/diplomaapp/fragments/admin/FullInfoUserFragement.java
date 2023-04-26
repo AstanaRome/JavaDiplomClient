@@ -2,15 +2,16 @@ package com.example.diplomaapp.fragments.admin;
 
 import static com.example.diplomaapp.api.AuthToken.createAuthToken;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,11 +24,11 @@ import com.example.diplomaapp.api.RoleApi;
 import com.example.diplomaapp.entity.Role;
 import com.example.diplomaapp.entity.User;
 
-import java.io.UnsupportedEncodingException;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -50,12 +51,13 @@ public class FullInfoUserFragement  extends Fragment {
     private Spinner spEnabled;
     private String password;
     private String username;
-
+    private TextView tvUserBirthdayShowInfoAdmin;
+    private Button btnUserBirhdayShowInfoAdmin;
     private String roleFromDb;
     private String enabledFromDb;
     private User user;
     public FullInfoUserFragement() {
-        super(R.layout.fragment_show_info_user);
+        super(R.layout.fragment_admin_user_show_info);
     }
 
     @Override
@@ -66,10 +68,11 @@ public class FullInfoUserFragement  extends Fragment {
         etLastnameInfo = view.findViewById(R.id.etLastNameInfo);
         etEmailInfo = view.findViewById(R.id.etEmailInfo);
         etUsernameInfo = view.findViewById(R.id.etUsernameInfo);
-        etBirthdayInfo = view.findViewById(R.id.etBirthdayInfo);
         etPasswordInfo = view.findViewById(R.id.etPasswordInfo);
         spRole = view.findViewById(R.id.spRoleInfo);
         spEnabled = view.findViewById(R.id.spEnabledInfo);
+        btnUserBirhdayShowInfoAdmin = view.findViewById(R.id.btnUserBirhdayShowInfoAdmin);
+        tvUserBirthdayShowInfoAdmin = view.findViewById(R.id.tvUserBirthdayShowInfoAdmin);
         user = new User();
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -86,10 +89,43 @@ public class FullInfoUserFragement  extends Fragment {
         if (user.getBirthDate() != null){
             Format formatter = new SimpleDateFormat("yyyy-MM-dd");
             String s = formatter.format(user.getBirthDate());
-            etBirthdayInfo.setText(s);
+            tvUserBirthdayShowInfoAdmin.setText(s);
         }
         btnOkInfo.setOnClickListener(this::change);
+        btnUserBirhdayShowInfoAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // on below line we are getting
+                // the instance of our calendar.
+                final Calendar c = Calendar.getInstance();
 
+                // on below line we are getting
+                // our day, month and year.
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                // on below line we are creating a variable for date picker dialog.
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        // on below line we are passing context.
+                        getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // on below line we are setting date to our text view.
+                                tvUserBirthdayShowInfoAdmin.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth );
+
+                            }
+                        },
+                        // on below line we are passing year,
+                        // month and day for selected date in our date picker.
+                        year, month, day);
+                // at last we are calling show to
+                // display our date picker dialog.
+                datePickerDialog.show();
+            }
+        });
         spEnabled.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -143,8 +179,8 @@ public class FullInfoUserFragement  extends Fragment {
         user.setEmail(etEmailInfo.getText().toString());
         SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         try {
-            if (!etBirthdayInfo.getText().toString().equals("")){
-                Date date=formatter1.parse(etBirthdayInfo.getText().toString());
+            if (!tvUserBirthdayShowInfoAdmin.getText().toString().equals("")){
+                Date date=formatter1.parse(tvUserBirthdayShowInfoAdmin.getText().toString());
                 //java.sql.Date sqlDate = new java.sql.Date(date.getTime());
                 user.setBirthDate(date);
             }
