@@ -42,10 +42,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void authUser(View view) {
-        String username = "admin";
-        String password = "admin";
+        String username = "patrick";
+        String password = "patrick";
 
+//        String username = "admin";
+//        String password = "admin";
 
+//
 //        String password = etPassword.getText().toString();
 //        String username = etLogin.getText().toString();
 
@@ -73,7 +76,10 @@ public class LoginActivity extends AppCompatActivity {
                             i2.putExtra("password", password);
                             startActivity(i2);
                         } else if(response.body().contains("CLIENT")){
-                            System.out.println("CLIENT");
+                            Intent i2 = new Intent(LoginActivity.this, ClientActivity.class);
+                            i2.putExtra("username", username);
+                            i2.putExtra("password", password);
+                            startActivity(i2);
                         } else if (response.body().contains("DOCTOR")){
                             System.out.println("DOCTOR");
                         }

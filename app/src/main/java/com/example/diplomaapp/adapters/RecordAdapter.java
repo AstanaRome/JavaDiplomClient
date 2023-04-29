@@ -31,6 +31,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
+    public Record getItem(int position){
+        return records.get(position);
+    }
+
     @Override
     public void onBindViewHolder(RecordAdapter.ViewHolder holder, int position) {
         Record record = records.get(position);

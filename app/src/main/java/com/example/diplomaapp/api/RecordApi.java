@@ -20,6 +20,7 @@ public interface RecordApi {
     @GET("/records")
     Call<List<Record>> getAllRecords(@Header("Authorization") String authToken);
 
+
     @POST("/records")
     Call<Record> saveRecord(@Header("Authorization") String authToken, @Body Record record);
 

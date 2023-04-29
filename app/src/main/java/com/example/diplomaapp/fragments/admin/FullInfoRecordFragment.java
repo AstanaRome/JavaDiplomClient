@@ -238,14 +238,18 @@ public class FullInfoRecordFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Doctor>> call, Response<List<Doctor>> response) {
                 doctors = response.body();
+                String doctorName;
                 ArrayList<String> names = new ArrayList<>();
                 for (Doctor doctor : doctors) {
+
                         names.add(doctor.getUser().getFullName());
                 }
                 ArrayAdapter<String> adapter_doctor = new ArrayAdapter<String>(getContext(),
                         android.R.layout.simple_spinner_item, names);
                 adapter_doctor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spAdminRecordShowInfoDoctor.setAdapter(adapter_doctor);
+                int index = adapter_doctor.getPosition(record.getDoctor().getUser().getFullName());
+                spAdminRecordShowInfoDoctor.setSelection(index);
             }
 
             @Override
@@ -278,6 +282,9 @@ public class FullInfoRecordFragment extends Fragment {
                         android.R.layout.simple_spinner_item, names);
                 adapter_user.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spAdminRecordShowInfoUser.setAdapter(adapter_user);
+                int index = adapter_user.getPosition(record.getUser().getFullName());
+                spAdminRecordShowInfoUser.setSelection(index);
+
             }
 
             @Override
@@ -298,6 +305,9 @@ public class FullInfoRecordFragment extends Fragment {
                 android.R.layout.simple_spinner_item, names);
         adapter_time.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spAdminRecordShowInfoTime.setAdapter(adapter_time);
+        int index = adapter_time.getPosition(record.getRecord_time().toString());
+        System.out.println(record.getRecord_time().toString());
+        spAdminRecordShowInfoTime.setSelection(index);
     }
 
 
