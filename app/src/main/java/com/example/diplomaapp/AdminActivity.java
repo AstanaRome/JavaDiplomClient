@@ -6,13 +6,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.diplomaapp.adapters.UserAdapter;
-import com.example.diplomaapp.entity.User;
-import com.example.diplomaapp.fragments.admin.MainAdminFragment;
-
-import java.util.List;
+import com.example.diplomaapp.fragments.admin.AdminMainFragment;
 
 public class AdminActivity extends AppCompatActivity {
     Button btnHome;
@@ -36,7 +31,7 @@ public class AdminActivity extends AppCompatActivity {
         bundle.putString("username",  username);
         bundle.putString("password",  password);
         // Key, value
-        Fragment Fragment_first=new MainAdminFragment();
+        Fragment Fragment_first=new AdminMainFragment();
         Fragment_first.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, Fragment_first, "TAG")
@@ -51,7 +46,7 @@ public class AdminActivity extends AppCompatActivity {
         bundle.putString("username",  username);
         bundle.putString("password",  password);
         // Key, value
-        Fragment Fragment_first=new MainAdminFragment();
+        Fragment Fragment_first=new AdminMainFragment();
         Fragment_first.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, Fragment_first, "TAG")

@@ -28,7 +28,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView2"
-                android:name="com.example.diplomaapp.fragments.client.MainClientFragment"
+                android:name="com.example.diplomaapp.fragments.client.ClientMainFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

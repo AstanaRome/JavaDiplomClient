@@ -10,18 +10,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.diplomaapp.R;
-import com.example.diplomaapp.archieve.Login;
 
-public class MainAdminFragment extends Fragment {
+public class AdminMainFragment extends Fragment {
     private ImageButton btnUsers;
     private ImageButton btnAddUserAdmin;
     private ImageButton btnShowAllRecordsAdmin;
     private ImageButton btnAddRecordAdmin;
 
 
+
     private String password;
     private String username;
-    public MainAdminFragment(){
+    public AdminMainFragment(){
         super(R.layout.fragment_admin_main);
     }
 
@@ -32,6 +32,7 @@ public class MainAdminFragment extends Fragment {
         btnAddUserAdmin = view.findViewById(R.id.btnClient);
         btnAddRecordAdmin = view.findViewById(R.id.btnAddRecordAdmin);
         btnShowAllRecordsAdmin = view.findViewById(R.id.btnShowAllRecordsAdmin);
+
         btnUsers.setOnClickListener(this::showUsersAdminFragment);
         btnAddUserAdmin.setOnClickListener(this::addUserAdminFragment);
         btnShowAllRecordsAdmin.setOnClickListener(this::ShowAllRecordsFragment);
@@ -51,18 +52,20 @@ public class MainAdminFragment extends Fragment {
         bundle.putString("username", username);
         bundle.putString("password", password);
 
-        Fragment Fragment_Second=new ShowAllUsersFragment();
+        Fragment Fragment_Second=new AdminShowAllUsersFragment();
         Fragment_Second.setArguments(bundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, Fragment_Second, "TAG")
                 .commit();
     }
+
+
     private void addUserAdminFragment(View view) {
         Bundle bundle = new Bundle();
         bundle.putString("username", username);
         bundle.putString("password", password);
-        Fragment Fragment_Second=new AddUserFragment();
+        Fragment Fragment_Second=new AdminAddUserFragment();
         Fragment_Second.setArguments(bundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
@@ -74,7 +77,7 @@ public class MainAdminFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString("username", username);
         bundle.putString("password", password);
-        Fragment Fragment_Records=new ShowAllRecordsFragment();
+        Fragment Fragment_Records=new AdminShowAllRecordsFragment();
         Fragment_Records.setArguments(bundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
@@ -87,7 +90,7 @@ public class MainAdminFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString("username", username);
         bundle.putString("password", password);
-        Fragment Fragment_Second=new AddRecordFragment();
+        Fragment Fragment_Second=new AdminAddRecordFragment();
         Fragment_Second.setArguments(bundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()

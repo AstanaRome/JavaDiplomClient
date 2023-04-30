@@ -10,19 +10,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.diplomaapp.R;
-import com.example.diplomaapp.fragments.admin.AddRecordFragment;
-import com.example.diplomaapp.fragments.admin.AddUserFragment;
-import com.example.diplomaapp.fragments.admin.ShowAllRecordsFragment;
-import com.example.diplomaapp.fragments.admin.ShowAllUsersFragment;
+import com.example.diplomaapp.fragments.admin.AdminShowAllUsersFragment;
 
-public class MainClientFragment extends Fragment{
+public class ClientMainFragment extends Fragment{
     private ImageButton btnClientShowAllRecords;
     private ImageButton btnClientShowClientRecords;
-
+    private ImageButton btnClientShowClientVisits;
+    private ImageButton btnClientShowAllDoctors;
 
     private String password;
     private String username;
-    public MainClientFragment(){
+    public ClientMainFragment(){
         super(R.layout.fragment_client_main);
     }
 
@@ -31,6 +29,10 @@ public class MainClientFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         btnClientShowAllRecords = view.findViewById(R.id.btnClientShowAllRecords);
         btnClientShowClientRecords = view.findViewById(R.id.btnClientShowClientRecords);
+        btnClientShowClientVisits = view.findViewById(R.id.btnClientShowAllHistory);
+        btnClientShowAllDoctors = view.findViewById(R.id.btnClientShowAllDoctors);
+        btnClientShowAllDoctors.setOnClickListener(this::ShowAllDoctorsFragment);
+        btnClientShowClientVisits.setOnClickListener(this::ShowAllVisitsFragment);
         btnClientShowAllRecords.setOnClickListener(this::ShowAllRecordsFragment);
         btnClientShowClientRecords.setOnClickListener(this::ShowMyRecordsFragment);
         Bundle bundle = getArguments();
@@ -43,13 +45,36 @@ public class MainClientFragment extends Fragment{
 
     }
 
+    private void ShowAllVisitsFragment(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+        bundle.putString("password", password);
+        Fragment Fragment_Records=new ClientShowAllVisitsFragment();
+        Fragment_Records.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView2, Fragment_Records, "TAG")
+                .commit();
+    }
 
+    private void ShowAllDoctorsFragment(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+        bundle.putString("password", password);
+
+        Fragment Fragment_Second=new ClientShowAllDoctorsFragment();
+        Fragment_Second.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView2, Fragment_Second, "TAG")
+                .commit();
+    }
 
     private void ShowAllRecordsFragment(View view) {
         Bundle bundle = new Bundle();
         bundle.putString("username", username);
         bundle.putString("password", password);
-        Fragment Fragment_Records=new ShowAllRecordsFragmentClient();
+        Fragment Fragment_Records=new ClientShowAllRecordsFragment();
         Fragment_Records.setArguments(bundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
@@ -61,7 +86,7 @@ public class MainClientFragment extends Fragment{
         Bundle bundle = new Bundle();
         bundle.putString("username", username);
         bundle.putString("password", password);
-        Fragment Fragment_Records=new ShowClientRecordsFragment();
+        Fragment Fragment_Records=new ClientShowMyRecordsFragment();
         Fragment_Records.setArguments(bundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()

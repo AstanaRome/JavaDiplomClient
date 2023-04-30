@@ -1,7 +1,5 @@
 package com.example.diplomaapp;
 
-import android.app.FragmentManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,9 +7,8 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.diplomaapp.fragments.admin.MainAdminFragment;
-import com.example.diplomaapp.fragments.client.MainClientFragment;
-import com.example.diplomaapp.fragments.client.ShowAllRecordsFragmentClient;
+import com.example.diplomaapp.fragments.client.ClientMainFragment;
+import com.example.diplomaapp.fragments.client.ClientShowAllRecordsFragment;
 import com.example.diplomaapp.test.Removable;
 
 public class ClientActivity extends AppCompatActivity implements  Removable{
@@ -37,7 +34,7 @@ public class ClientActivity extends AppCompatActivity implements  Removable{
         Bundle bundle = new Bundle();
         bundle.putString("username",  username);
         bundle.putString("password",  password);
-        Fragment Fragment_first=new MainClientFragment();
+        Fragment Fragment_first=new ClientMainFragment();
         Fragment_first.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainerView2, Fragment_first, "TAG")
@@ -51,7 +48,7 @@ public class ClientActivity extends AppCompatActivity implements  Removable{
         bundle.putString("username",  username);
         bundle.putString("password",  password);
         // Key, value
-        Fragment Fragment_first=new MainClientFragment();
+        Fragment Fragment_first=new ClientMainFragment();
         Fragment_first.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainerView2, Fragment_first, "TAG")
@@ -64,7 +61,7 @@ public class ClientActivity extends AppCompatActivity implements  Removable{
         bundle.putString("username",  username);
         bundle.putString("password",  password);
         // Key, value
-        Fragment Fragment_first=new ShowAllRecordsFragmentClient();
+        Fragment Fragment_first=new ClientShowAllRecordsFragment();
         Fragment_first.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainerView2, Fragment_first, "TAG")

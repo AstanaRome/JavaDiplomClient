@@ -29,9 +29,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ShowAllRecordsFragment extends Fragment implements ClickInterface {
+public class AdminShowAllRecordsFragment extends Fragment implements ClickInterface {
 
-    public ShowAllRecordsFragment(){
+    public AdminShowAllRecordsFragment(){
         super(R.layout.fragment_list_records);
     }
     private RecyclerView rvRecords;
@@ -59,7 +59,7 @@ public class ShowAllRecordsFragment extends Fragment implements ClickInterface {
                 new RecyclerItemClickListener(getContext(), rvRecords ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
-                        Fragment Fragment_Record_Info   =  new FullInfoRecordFragment();
+                        Fragment Fragment_Record_Info   =  new AdminShowInfoRecordFragment();
                         FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.beginTransaction()
                                 .replace(R.id.fragmentContainer, Fragment_Record_Info, "TAG")

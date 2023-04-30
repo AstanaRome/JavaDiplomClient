@@ -29,9 +29,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ShowAllUsersFragment extends Fragment implements ClickInterface {
+public class AdminShowAllUsersFragment extends Fragment implements ClickInterface {
 
-    public ShowAllUsersFragment(){
+    public AdminShowAllUsersFragment(){
         super(R.layout.fragment_list_users);
     }
     private RecyclerView rvUsers;
@@ -59,7 +59,7 @@ public class ShowAllUsersFragment extends Fragment implements ClickInterface {
                 new RecyclerItemClickListener(getContext(), rvUsers ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
-                        Fragment Fragment_User_Info   =  new FullInfoUserFragement();
+                        Fragment Fragment_User_Info   =  new AdminShowInfoUserFragement();
                         FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.beginTransaction()
                                 .replace(R.id.fragmentContainer, Fragment_User_Info, "TAG")

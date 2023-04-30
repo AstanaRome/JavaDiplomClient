@@ -21,10 +21,10 @@ import androidx.fragment.app.Fragment;
 import com.example.diplomaapp.R;
 import com.example.diplomaapp.api.NetworkService;
 import com.example.diplomaapp.api.RoleApi;
+import com.example.diplomaapp.api.UserApi;
 import com.example.diplomaapp.entity.Role;
 import com.example.diplomaapp.entity.User;
 
-import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,62 +37,57 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FullInfoUserFragement  extends Fragment {
-    private Button btnOkInfo;
-    private EditText etUsernameInfo;
-    private EditText etFirstnameInfo;
-    private EditText etLastnameInfo;
-    private EditText etEmailInfo;
-    private EditText etPasswordInfo;
-    private EditText etBirthdayInfo;
+public class AdminAddUserFragment extends Fragment {
 
+    private Button btnAddClient;
+
+    private EditText etFirstName;
+    private EditText etLastName;
+    private EditText etEmail;
+    private EditText etUsername;
+    private EditText etPassword;
     private List<Role> roles;
     private Spinner spRole;
     private Spinner spEnabled;
+    private TextView tvUserBirthdayAddAdmin;
+    private Button btnUserAddDateAdmin;
+
+    private User user;
     private String password;
     private String username;
-    private TextView tvUserBirthdayShowInfoAdmin;
-    private Button btnUserBirhdayShowInfoAdmin;
-    private String roleFromDb;
-    private String enabledFromDb;
-    private User user;
-    public FullInfoUserFragement() {
-        super(R.layout.fragment_admin_user_show_info);
+
+
+    public AdminAddUserFragment() {
+        super(R.layout.fragment_admin_user_add);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnOkInfo = view.findViewById(R.id.btnOkInfo);
-        etFirstnameInfo = view.findViewById(R.id.etFirstNameInfo);
-        etLastnameInfo = view.findViewById(R.id.etLastNameInfo);
-        etEmailInfo = view.findViewById(R.id.etEmailInfo);
-        etUsernameInfo = view.findViewById(R.id.etUsernameInfo);
-        etPasswordInfo = view.findViewById(R.id.etPasswordInfo);
-        spRole = view.findViewById(R.id.spRoleInfo);
-        spEnabled = view.findViewById(R.id.spEnabledInfo);
-        btnUserBirhdayShowInfoAdmin = view.findViewById(R.id.btnUserBirhdayShowInfoAdmin);
-        tvUserBirthdayShowInfoAdmin = view.findViewById(R.id.tvUserBirthdayShowInfoAdmin);
         user = new User();
+        etFirstName = view.findViewById(R.id.etFirstNameAdd);
+        etLastName = view.findViewById(R.id.etLastNameAdd);
+        etUsername = view.findViewById(R.id.etUsernameAdd);
+        etPassword = view.findViewById(R.id.etPasswordAdd);
+        etEmail = view.findViewById(R.id.etEmailAdd);
+        btnAddClient = view.findViewById(R.id.btnSaveAdd);
+        btnUserAddDateAdmin = view.findViewById(R.id.btnUserAddDateAdmin);
+        spRole = view.findViewById(R.id.spRole);
+        spEnabled = view.findViewById(R.id.spEnabled);
+        tvUserBirthdayAddAdmin = view.findViewById(R.id.tvUserBirthdayAddAdmin);
+        btnAddClient.setOnClickListener(this::change);
+
+
+
         Bundle bundle = getArguments();
         if (bundle != null) {
-            user = bundle.getParcelable("user");
             username = bundle.getString("username");
             password = bundle.getString("password");
+            System.out.println(username);
+            System.out.println(password);
         }
-        System.out.println(username);
-        System.out.println(password);
-        etUsernameInfo.setText(user.getUserName());
-        etFirstnameInfo.setText(user.getFirstName());
-        etLastnameInfo.setText(user.getLastName());
-        etEmailInfo.setText(user.getEmail());
-        if (user.getBirthDate() != null){
-            Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String s = formatter.format(user.getBirthDate());
-            tvUserBirthdayShowInfoAdmin.setText(s);
-        }
-        btnOkInfo.setOnClickListener(this::change);
-        btnUserBirhdayShowInfoAdmin.setOnClickListener(new View.OnClickListener() {
+
+        btnUserAddDateAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // on below line we are getting
@@ -114,7 +109,7 @@ public class FullInfoUserFragement  extends Fragment {
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // on below line we are setting date to our text view.
-                                tvUserBirthdayShowInfoAdmin.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth );
+                                tvUserBirthdayAddAdmin.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth );
 
                             }
                         },
@@ -168,49 +163,51 @@ public class FullInfoUserFragement  extends Fragment {
         fillSpEnabled();
     }
 
-    private void change(View view)  {
-        user.setFirstName(etFirstnameInfo.getText().toString());
-        user.setLastName(etLastnameInfo.getText().toString());
-        user.setUserName(etUsernameInfo.getText().toString());
-        if (!etPasswordInfo.getText().toString().equals("")){
-            user.setPassword(etPasswordInfo.getText().toString());
-        }
-
-        user.setEmail(etEmailInfo.getText().toString());
-        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        try {
-            if (!tvUserBirthdayShowInfoAdmin.getText().toString().equals("")){
-                Date date=formatter1.parse(tvUserBirthdayShowInfoAdmin.getText().toString());
-                //java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                user.setBirthDate(date);
+    private void change(View view) {
+        user.setFirstName(etFirstName.getText().toString());
+        user.setLastName(etLastName.getText().toString());
+        user.setEmail(etEmail.getText().toString());
+        user.setUserName(etUsername.getText().toString());
+        user.setPassword(etPassword.getText().toString());
+        if (tvUserBirthdayAddAdmin.getText().toString() != ""){{
+            String date = tvUserBirthdayAddAdmin.getText().toString();
+            SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            Date date2;
+            try {
+                date2 = formatter1.parse(date);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
             }
 
-            updateUser(user);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        } finally {
+            user.setBirthDate(date2);
+        }}
+        saveClient(user);
+    }
 
-        }
+
+    private void saveClient(User user) {
+
+
+        String auth = createAuthToken(username, password);
+
+        NetworkService networkService = NetworkService.getInstance();
+        UserApi api = networkService.getUserApi();
+        Call<User> call = api.saveUser(auth, user);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User buf = response.body();
+                Toast.makeText(getContext(), "Succesful",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+            }
+        });
 
     }
-        private void updateUser(User user) throws ParseException{
-            String auth = createAuthToken(username, password);
-            NetworkService
-                    .getInstance()
-                    .getUserApi()
-                    .updateUser(auth, user)
-                    .enqueue(new Callback<User>() {
-                        @Override
-                        public void onResponse(Call<User> call, Response<User> response) {
-                            User buf = response.body();
-                            Toast.makeText(getContext(), "Succesful",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        @Override
-                        public void onFailure(Call<User> call, Throwable t) {
-                        }
-                    });
-        }
 
 
     public void fillSpRole() {
@@ -226,17 +223,12 @@ public class FullInfoUserFragement  extends Fragment {
                 roles = response.body();
                 ArrayList<String> names = new ArrayList<>();
                 for (Role role : roles) {
-                    if (role.getId() == user.getRole_id().getId()) {
-                        roleFromDb = user.getRole_id().getName();
-                    }
                     names.add(role.getName());
                 }
                 ArrayAdapter<String> adapter_doctor = new ArrayAdapter<String>(getContext(),
                         android.R.layout.simple_spinner_item, names);
                 adapter_doctor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spRole.setAdapter(adapter_doctor);
-                int index = adapter_doctor.getPosition(roleFromDb);
-                spRole.setSelection(index);
             }
 
             @Override
@@ -256,17 +248,7 @@ public class FullInfoUserFragement  extends Fragment {
                 android.R.layout.simple_spinner_item, names);
         adapter_doctor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spEnabled.setAdapter(adapter_doctor);
-        int index;
-        if (user.isEnabled() == true){
-           index = adapter_doctor.getPosition("Active");
-        } else{
-            index = adapter_doctor.getPosition("Banned");
-        }
-
-        spRole.setSelection(index);
 
     }
-
-
 
 }

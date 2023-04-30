@@ -18,7 +18,6 @@ import com.example.diplomaapp.api.NetworkService;
 import com.example.diplomaapp.entity.Record;
 import com.example.diplomaapp.test.ClickInterface;
 import com.example.diplomaapp.test.RecyclerItemClickListener;
-import com.example.diplomaapp.test.Removable;
 
 import java.util.List;
 
@@ -26,9 +25,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ShowClientRecordsFragment extends Fragment implements ClickInterface {
+public class ClientShowMyRecordsFragment extends Fragment implements ClickInterface {
 
-    public ShowClientRecordsFragment(){
+    public ClientShowMyRecordsFragment(){
         super(R.layout.fragment_list_records);
     }
     private RecyclerView rvRecords;

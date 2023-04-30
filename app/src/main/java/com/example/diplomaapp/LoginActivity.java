@@ -28,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText etPassword;
     Button btnLogin;
 
-    private List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +80,10 @@ public class LoginActivity extends AppCompatActivity {
                             i2.putExtra("password", password);
                             startActivity(i2);
                         } else if (response.body().contains("DOCTOR")){
+                            Intent i2 = new Intent(LoginActivity.this, DoctorActivity.class);
+                            i2.putExtra("username", username);
+                            i2.putExtra("password", password);
+                            startActivity(i2);
                             System.out.println("DOCTOR");
                         }
 

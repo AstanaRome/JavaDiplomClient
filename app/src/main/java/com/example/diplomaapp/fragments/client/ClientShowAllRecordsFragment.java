@@ -4,13 +4,10 @@ import static com.example.diplomaapp.api.AuthToken.createAuthToken;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,22 +15,19 @@ import com.example.diplomaapp.R;
 import com.example.diplomaapp.adapters.RecordAdapter;
 import com.example.diplomaapp.api.ClientApi;
 import com.example.diplomaapp.api.NetworkService;
-import com.example.diplomaapp.api.RecordApi;
 import com.example.diplomaapp.entity.Record;
-import com.example.diplomaapp.fragments.admin.FullInfoRecordFragment;
 import com.example.diplomaapp.test.ClickInterface;
 import com.example.diplomaapp.test.RecyclerItemClickListener;
 
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ShowAllRecordsFragmentClient extends Fragment implements ClickInterface {
+public class ClientShowAllRecordsFragment extends Fragment implements ClickInterface {
 
-    public ShowAllRecordsFragmentClient(){
+    public ClientShowAllRecordsFragment(){
         super(R.layout.fragment_list_records);
     }
     private RecyclerView rvRecords;
