@@ -192,18 +192,18 @@ public class AdminAddUserFragment extends Fragment {
 
         NetworkService networkService = NetworkService.getInstance();
         UserApi api = networkService.getUserApi();
-        Call<User> call = api.saveUser(auth, user);
+        Call<String> call = api.saveUser(auth, user);
 
-        call.enqueue(new Callback<User>() {
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                User buf = response.body();
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.out.println(response.body().toString());
                 Toast.makeText(getContext(), "Succesful",
                         Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
             }
         });
 

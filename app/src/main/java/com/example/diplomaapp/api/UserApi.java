@@ -19,8 +19,8 @@ public interface UserApi {
     @GET("/users")
     Call<List<User>> getAllUsers(@Header("Authorization") String authToken);
 
-    @POST("/users")
-    Call<User> saveUser(@Header("Authorization") String authToken, @Body User user);
+    @POST("/users/add")
+    Call<String> saveUser(@Header("Authorization") String authToken, @Body User user);
 
     @PUT("/users")
     Call<User> updateUser(@Header("Authorization") String authToken, @Body User user);

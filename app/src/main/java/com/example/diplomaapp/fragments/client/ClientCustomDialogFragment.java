@@ -45,8 +45,12 @@ public class ClientCustomDialogFragment extends DialogFragment {
         Record record = getArguments().getParcelable("record");
         username = getArguments().getString("username");
         password = getArguments().getString("password");
+        String date = "";
         Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String date = formatter.format(record.getRecord_day());
+        if (record.getRecord_day()!= null){
+            date = formatter.format(record.getRecord_day());
+        }
+
         return builder
                 .setTitle("Запись на прием")
                 .setIcon(android.R.drawable.ic_dialog_alert)

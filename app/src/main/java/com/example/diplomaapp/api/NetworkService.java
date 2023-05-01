@@ -59,6 +59,9 @@ public class NetworkService {
     public ClientApi getClientApi(){
         return retrofit.create(ClientApi.class);
     }
+    public DoctorUserApi getDoctorUserApi(){
+        return retrofit.create(DoctorUserApi.class);
+    }
 
 
 

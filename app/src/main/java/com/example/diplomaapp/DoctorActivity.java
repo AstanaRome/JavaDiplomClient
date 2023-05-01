@@ -9,9 +9,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.diplomaapp.fragments.client.ClientMainFragment;
 import com.example.diplomaapp.fragments.client.ClientShowAllRecordsFragment;
+import com.example.diplomaapp.fragments.doctor.DoctorMainFragment;
 import com.example.diplomaapp.test.Removable;
 
-public class DoctorActivity extends AppCompatActivity implements  Removable{
+public class DoctorActivity extends AppCompatActivity {
 
     String username;
     String password;
@@ -21,7 +22,7 @@ public class DoctorActivity extends AppCompatActivity implements  Removable{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client);
+        setContentView(R.layout.activity_doctor);
         btnClientHome = findViewById(R.id.btnClientHome);
 
         Bundle arguments = getIntent().getExtras();
@@ -34,10 +35,10 @@ public class DoctorActivity extends AppCompatActivity implements  Removable{
         Bundle bundle = new Bundle();
         bundle.putString("username",  username);
         bundle.putString("password",  password);
-        Fragment Fragment_first=new ClientMainFragment();
+        Fragment Fragment_first=new DoctorMainFragment();
         Fragment_first.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainerView2, Fragment_first, "TAG")
+                .replace(R.id.fragmentContainerView3, Fragment_first, "TAG")
                 .commit();
 
         btnClientHome.setOnClickListener(this::showClientMainFragment);
@@ -48,28 +49,14 @@ public class DoctorActivity extends AppCompatActivity implements  Removable{
         bundle.putString("username",  username);
         bundle.putString("password",  password);
         // Key, value
-        Fragment Fragment_first=new ClientMainFragment();
+        Fragment Fragment_first=new DoctorMainFragment();
         Fragment_first.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainerView2, Fragment_first, "TAG")
+                .replace(R.id.fragmentContainerView3, Fragment_first, "TAG")
                 .commit();
 
 
     }
-    private void ShowAllRecordsFragment() {
-        Bundle bundle = new Bundle();
-        bundle.putString("username",  username);
-        bundle.putString("password",  password);
-        // Key, value
-        Fragment Fragment_first=new ClientShowAllRecordsFragment();
-        Fragment_first.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainerView2, Fragment_first, "TAG")
-                .commit();
-    }
 
-    @Override
-    public void remove() {
-     ShowAllRecordsFragment();
-    }
+
 }

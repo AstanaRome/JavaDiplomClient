@@ -1,4 +1,4 @@
-package com.example.diplomaapp.fragments.client;
+package com.example.diplomaapp.fragments.doctor;
 
 import static com.example.diplomaapp.api.AuthToken.createAuthToken;
 
@@ -14,9 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diplomaapp.R;
 import com.example.diplomaapp.adapters.ClientVisitAdapter;
+import com.example.diplomaapp.adapters.DoctorVisitAdapter;
 import com.example.diplomaapp.api.ClientApi;
+import com.example.diplomaapp.api.DoctorUserApi;
 import com.example.diplomaapp.api.NetworkService;
 import com.example.diplomaapp.entity.Visit;
+import com.example.diplomaapp.fragments.client.ClientShowVisitInfo;
 import com.example.diplomaapp.test.ClickInterface;
 import com.example.diplomaapp.test.RecyclerItemClickListener;
 
@@ -26,13 +29,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ClientShowAllVisitsFragment extends Fragment implements ClickInterface {
+public class DoctorAllVisitsFragment extends Fragment implements ClickInterface {
 
-    public ClientShowAllVisitsFragment(){
-        super(R.layout.fragment_client_list_visits);
+    public DoctorAllVisitsFragment(){
+        super(R.layout.fragment_doctor_list_visits);
     }
     private RecyclerView rvVisits;
-    private ClientVisitAdapter adapter;
+    private DoctorVisitAdapter adapter;
     private List<Visit> visits;
 
     private String password;
@@ -52,33 +55,33 @@ public class ClientShowAllVisitsFragment extends Fragment implements ClickInterf
 
         fillAdapter();
 
-        rvVisits.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(), rvVisits ,new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-                        Visit visit = visits.get(position);
-                        Fragment Fragment_Record_Info   =  new ClientShowVisitInfo();
-                        FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction()
-                                .replace(R.id.fragmentContainerView2, Fragment_Record_Info, "TAG")
-                                .commit();
-
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("visit",  visit);  // Key, value
-                        Fragment_Record_Info.setArguments(bundle);
-                    }
-
-                    @Override public void onLongItemClick(View view, int position) {
-                        // do whatever
-                    }
-                })
-        );
+//        rvVisits.addOnItemTouchListener(
+//                new RecyclerItemClickListener(getContext(), rvVisits ,new RecyclerItemClickListener.OnItemClickListener() {
+//                    @Override public void onItemClick(View view, int position) {
+//                        Visit visit = visits.get(position);
+//                        Fragment Fragment_Record_Info   =  new ClientShowVisitInfo();
+//                        FragmentManager fragmentManager = getFragmentManager();
+//                        fragmentManager.beginTransaction()
+//                                .replace(R.id.fragmentContainerView2, Fragment_Record_Info, "TAG")
+//                                .commit();
+//
+//                        Bundle bundle = new Bundle();
+//                        bundle.putParcelable("visit",  visit);  // Key, value
+//                        Fragment_Record_Info.setArguments(bundle);
+//                    }
+//
+//                    @Override public void onLongItemClick(View view, int position) {
+//                        // do whatever
+//                    }
+//                })
+//        );
     }
     private void fillAdapter(){
 
         String auth = createAuthToken(username, password);
 
         NetworkService networkService = NetworkService.getInstance();
-        ClientApi api = networkService.getClientApi();
+        DoctorUserApi api = networkService.getDoctorUserApi();
 
         Call<List<Visit>> call = api.getAllMyVisits(auth);
 
@@ -90,7 +93,7 @@ public class ClientShowAllVisitsFragment extends Fragment implements ClickInterf
                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
                 rvVisits.setHasFixedSize(true);
                 rvVisits.setLayoutManager(manager);
-                adapter = new ClientVisitAdapter(getContext(), visits);
+                adapter = new DoctorVisitAdapter(getContext(), visits);
                 rvVisits.setAdapter(adapter);
                 System.out.println("test!!!!!!!");
             }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Medicine card</string>
 
-    <string name="emailEdit">Email</string>
+    <string name="usernameEdit">username</string>
     <string name="passwordEdit">Password</string>
     <string name="loginButton">Login</string>
     <string name="signUp">Create Account</string>

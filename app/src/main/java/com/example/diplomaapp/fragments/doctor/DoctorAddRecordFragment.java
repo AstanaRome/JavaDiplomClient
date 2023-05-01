@@ -1,4 +1,4 @@
-package com.example.diplomaapp.fragments.admin;
+package com.example.diplomaapp.fragments.doctor;
 
 import static com.example.diplomaapp.api.AuthToken.createAuthToken;
 
@@ -18,11 +18,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.diplomaapp.R;
+import com.example.diplomaapp.api.DoctorApi;
+import com.example.diplomaapp.api.DoctorUserApi;
 import com.example.diplomaapp.api.NetworkService;
 import com.example.diplomaapp.api.RecordApi;
-import com.example.diplomaapp.api.DoctorApi;
-import com.example.diplomaapp.entity.Record;
 import com.example.diplomaapp.entity.Doctor;
+import com.example.diplomaapp.entity.Record;
 
 import java.sql.Time;
 import java.text.ParseException;
@@ -37,36 +38,34 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdminAddRecordFragment extends Fragment {
+public class DoctorAddRecordFragment extends Fragment {
 
 
 
-    Button btnRecordDateAdmin;
-    TextView tvRecordDateAdmin;
+    Button btnRecordDateDoctor;
+    TextView tvRecordDateDoctor;
 
-    Spinner spRecordAddAdminDoctor;
-    Spinner spRecordAddAdminTime;
+    Spinner spRecordAddDoctorTime;
     private String password;
     private String username;
-    private Button btnRecordAddSaveAdmin;
+    private Button btnRecordAddSaveDoctor;
 
 
     private Record record;
     private List<Doctor> doctors;
     private List<String> times;
 
-    public AdminAddRecordFragment() {
-        super(R.layout.fragment_admin_record_add);
+    public DoctorAddRecordFragment() {
+        super(R.layout.fragment_doctor_record_add);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnRecordDateAdmin = view.findViewById(R.id.btnAdminRecordAddDate);
-        tvRecordDateAdmin = view.findViewById(R.id.tvAdminRecordAddDay);
-        spRecordAddAdminDoctor = view.findViewById(R.id.spAdminRecordAddDoctor);
-        spRecordAddAdminTime = view.findViewById(R.id.spRecordAddTimeAdmin);
-        btnRecordAddSaveAdmin = view.findViewById(R.id.btnRecordAddSaveAdmin);
+        btnRecordDateDoctor = view.findViewById(R.id.btnDoctorRecordAddDate);
+        tvRecordDateDoctor = view.findViewById(R.id.tvDoctorRecordAddDay);
+        spRecordAddDoctorTime = view.findViewById(R.id.spRecordAddTimeDoctor);
+        btnRecordAddSaveDoctor = view.findViewById(R.id.btnRecordAddSaveDoctor);
         record = new Record();
 
         Bundle bundle = getArguments();
@@ -78,11 +77,11 @@ public class AdminAddRecordFragment extends Fragment {
         }
 
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        tvRecordDateAdmin.setText(date);
+        tvRecordDateDoctor.setText(date);
 
-        btnRecordAddSaveAdmin.setOnClickListener(this::saveClient);
+        btnRecordAddSaveDoctor.setOnClickListener(this::saveClient);
 
-        btnRecordDateAdmin.setOnClickListener(new View.OnClickListener() {
+        btnRecordDateDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // on below line we are getting
@@ -104,7 +103,7 @@ public class AdminAddRecordFragment extends Fragment {
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // on below line we are setting date to our text view.
-                                tvRecordDateAdmin.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth );
+                                tvRecordDateDoctor.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth );
 
                             }
                         },
@@ -117,10 +116,10 @@ public class AdminAddRecordFragment extends Fragment {
             }
         });
 
-        spRecordAddAdminTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spRecordAddDoctorTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String str = (String) spRecordAddAdminTime.getSelectedItem();
+                String str = (String) spRecordAddDoctorTime.getSelectedItem();
 
                 SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
 
@@ -141,33 +140,12 @@ public class AdminAddRecordFragment extends Fragment {
 
         });
 
-        spRecordAddAdminDoctor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String str = (String) spRecordAddAdminDoctor.getSelectedItem();
-                for (Doctor doctor: doctors) {
-                    String str2 = doctor.getUser().getFullName();
-                    if (str2.equals(str)) {
-                        System.out.println(doctor);
-                        record.setDoctor(doctor);
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-
-
-        });
-        fillSpDoctor();
         fillSpTime();
     }
 
     private void saveClient(View view) {
 
-        String str = tvRecordDateAdmin.getText().toString();
+        String str = tvRecordDateDoctor.getText().toString();
         if (!str.equals("!")){
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
@@ -182,14 +160,14 @@ public class AdminAddRecordFragment extends Fragment {
         String auth = createAuthToken(username, password);
 
         NetworkService networkService = NetworkService.getInstance();
-        RecordApi api = networkService.getRecordApi();
-        Call<Record> call = api.saveRecord(auth, record);
-
+        DoctorUserApi api = networkService.getDoctorUserApi();
+        Call<Record> call = api.addRecord(auth, record);
+        System.out.println(record);
         call.enqueue(new Callback<Record>() {
             @Override
             public void onResponse(Call<Record> call, Response<Record> response) {
                 Record buf = response.body();
-                System.out.println(buf);
+
                 Toast.makeText(getContext(), "Succesful",
                         Toast.LENGTH_SHORT).show();
             }
@@ -201,71 +179,6 @@ public class AdminAddRecordFragment extends Fragment {
 
     }
 
-//    private void change(View view) {
-//        doctor.setFirstName(etFirstName.getText().toString());
-//        doctor.setLastName(etLastName.getText().toString());
-//        doctor.setEmail(etEmail.getText().toString());
-//        doctor.setDoctorName(etDoctorname.getText().toString());
-//        doctor.setPassword(etPassword.getText().toString());
-//        saveClient(doctor);
-//
-//
-//    }
-//
-//
-//    private void saveClient(Doctor doctor) {
-//
-//
-//        String auth = createAuthToken(doctorname, password);
-//
-//        NetworkService networkService = NetworkService.getInstance();
-//        DoctorApi api = networkService.getDoctorApi();
-//        Call<Doctor> call = api.saveDoctor(auth, doctor);
-//
-//        call.enqueue(new Callback<Doctor>() {
-//            @Override
-//            public void onResponse(Call<Doctor> call, Response<Doctor> response) {
-//                Doctor buf = response.body();
-//                Toast.makeText(getContext(), "Succesful",
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Doctor> call, Throwable t) {
-//            }
-//        });
-//
-//    }
-//
-//
-    public void fillSpDoctor() {
-
-        NetworkService networkService = NetworkService.getInstance();
-        DoctorApi api = networkService.getDoctorApi();
-        Call<List<Doctor>> call = api.getAllDoctors(createAuthToken(username, password));
-
-
-        call.enqueue(new Callback<List<Doctor>>() {
-            @Override
-            public void onResponse(Call<List<Doctor>> call, Response<List<Doctor>> response) {
-                doctors = response.body();
-                ArrayList<String> names = new ArrayList<>();
-                for (Doctor doctor : doctors) {
-                        names.add(doctor.getUser().getFullName());
-                }
-                ArrayAdapter<String> adapter_doctor = new ArrayAdapter<String>(getContext(),
-                        android.R.layout.simple_spinner_item, names);
-                adapter_doctor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spRecordAddAdminDoctor.setAdapter(adapter_doctor);
-            }
-
-            @Override
-            public void onFailure(Call<List<Doctor>> call, Throwable t) {
-                System.out.println(t.toString());
-            }
-        });
-    }
-//
     public void fillSpTime() {
 
         ArrayList<String> names = new ArrayList<>();
@@ -276,7 +189,7 @@ public class AdminAddRecordFragment extends Fragment {
         ArrayAdapter<String> adapter_time = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, names);
         adapter_time.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spRecordAddAdminTime.setAdapter(adapter_time);
+        spRecordAddDoctorTime.setAdapter(adapter_time);
     }
 
 

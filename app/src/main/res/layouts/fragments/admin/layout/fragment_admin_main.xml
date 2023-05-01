@@ -10,68 +10,109 @@
 
     >
 
-    <ImageButton
-        android:id="@+id/btnUsers"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="141dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="56dp"
-        android:adjustViewBounds="true"
-        android:padding="20dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/btnShowAllRecordsAdmin"
-        app:layout_constraintEnd_toStartOf="@+id/btnClient"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/peoples_group_icon" />
-
-    <ImageButton
-        android:id="@+id/btnAddRecordAdmin"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="189dp"
-        android:adjustViewBounds="true"
-        android:padding="20dp"
-        android:scaleType="fitCenter"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnShowAllRecordsAdmin"
-        app:layout_constraintTop_toBottomOf="@+id/btnClient"
-        app:srcCompat="@drawable/add_date_calendar_icon" />
-
-    <ImageButton
-        android:id="@+id/btnShowAllRecordsAdmin"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="54dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="189dp"
-        android:adjustViewBounds="true"
-        android:padding="20dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnAddRecordAdmin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnUsers"
-        app:srcCompat="@drawable/timetable_icon" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/btnClient"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="141dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="58dp"
-        android:adjustViewBounds="true"
-        android:padding="20dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddRecordAdmin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnUsers"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/male_add_icon" />
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnUsers"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:adjustViewBounds="true"
+                    android:padding="20dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/peoples_group_icon" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="Users"
+                    android:textSize="25dp" />
+
+                <ImageButton
+                    android:id="@+id/btnShowAllRecordsAdmin"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="20dp"
+                    android:adjustViewBounds="true"
+                    android:padding="20dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/timetable_icon" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="All Record"
+                    android:textSize="25dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnClient"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:adjustViewBounds="true"
+                    android:padding="20dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/male_add_icon" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="Add User"
+                    android:textSize="25dp" />
+
+                <ImageButton
+                    android:id="@+id/btnAddRecordAdmin"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="20dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/add_date_calendar_icon" />
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="Add Record"
+                    android:textSize="25dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

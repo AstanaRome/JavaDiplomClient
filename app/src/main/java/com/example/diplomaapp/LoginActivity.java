@@ -1,6 +1,7 @@
 package com.example.diplomaapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.splashscreen.SplashScreen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         etLogin = findViewById(R.id.etLogin);
@@ -41,8 +43,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void authUser(View view) {
-        String username = "patrick";
-        String password = "patrick";
+          String username = "alex";
+          String password = "alex";
+
+//        String username = "patrick";
+//        String password = "patrick";
 
 //        String username = "admin";
 //        String password = "admin";

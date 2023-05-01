@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.diplomaapp.R;
-import com.example.diplomaapp.fragments.admin.AdminShowAllUsersFragment;
 
 public class ClientMainFragment extends Fragment{
     private ImageButton btnClientShowAllRecords;
@@ -29,7 +28,7 @@ public class ClientMainFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         btnClientShowAllRecords = view.findViewById(R.id.btnClientShowAllRecords);
         btnClientShowClientRecords = view.findViewById(R.id.btnClientShowClientRecords);
-        btnClientShowClientVisits = view.findViewById(R.id.btnClientShowAllHistory);
+        btnClientShowClientVisits = view.findViewById(R.id.btnShowAllHistory);
         btnClientShowAllDoctors = view.findViewById(R.id.btnClientShowAllDoctors);
         btnClientShowAllDoctors.setOnClickListener(this::ShowAllDoctorsFragment);
         btnClientShowClientVisits.setOnClickListener(this::ShowAllVisitsFragment);

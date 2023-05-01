@@ -10,7 +10,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DiplomaApp"
+        android:theme="@style/Theme.App.Starting"
         tools:targetApi="31"
 
         >
@@ -19,13 +19,23 @@
             android:name=".LoginActivity"
             android:exported="true" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"
+                    android:theme="@style/Theme.DiplomaApp"
+                    />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AdminActivity"></activity>
-        <activity android:name=".ClientActivity"></activity>
+
+        <activity android:name=".AdminActivity"
+            android:theme="@style/Theme.DiplomaApp"
+            ></activity>
+        <activity android:name=".ClientActivity"
+            android:theme="@style/Theme.DiplomaApp"
+            ></activity>
+        <activity android:name=".DoctorActivity"
+            android:theme="@style/Theme.DiplomaApp"
+            ></activity>
     </application>
 
 </manifest>
