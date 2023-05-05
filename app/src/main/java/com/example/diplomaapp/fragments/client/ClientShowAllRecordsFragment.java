@@ -90,7 +90,6 @@ public class ClientShowAllRecordsFragment extends Fragment implements ClickInter
     private void fillAdapter(){
 
         String auth = createAuthToken(username, password);
-
         NetworkService networkService = NetworkService.getInstance();
         ClientApi api = networkService.getClientApi();
 
@@ -106,7 +105,6 @@ public class ClientShowAllRecordsFragment extends Fragment implements ClickInter
                 rvRecords.setLayoutManager(manager);
                 adapter = new RecordAdapter(getContext(), records);
                 rvRecords.setAdapter(adapter);
-                System.out.println("test!!!!!!!");
             }
 
             @Override

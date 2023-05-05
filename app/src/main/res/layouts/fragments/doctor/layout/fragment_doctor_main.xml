@@ -94,22 +94,6 @@
                     android:text="Booked Records"
                     android:textSize="25dp" />
 
-                <ImageButton
-                    android:id="@+id/btnDoctorAllClients"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="20dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/peoples_group_icon" />
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:text="Clients"
-                    android:textSize="25dp" />
             </LinearLayout>
         </LinearLayout>
 

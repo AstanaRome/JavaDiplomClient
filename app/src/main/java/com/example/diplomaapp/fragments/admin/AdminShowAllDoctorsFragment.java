@@ -1,4 +1,4 @@
-package com.example.diplomaapp.fragments.doctor;
+package com.example.diplomaapp.fragments.admin;
 
 import static com.example.diplomaapp.api.AuthToken.createAuthToken;
 
@@ -13,11 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diplomaapp.R;
-import com.example.diplomaapp.adapters.RecordAdapter;
+import com.example.diplomaapp.adapters.ClientDoctorAdapter;
 import com.example.diplomaapp.api.ClientApi;
-import com.example.diplomaapp.api.DoctorUserApi;
 import com.example.diplomaapp.api.NetworkService;
-import com.example.diplomaapp.entity.Record;
+import com.example.diplomaapp.entity.Doctor;
 import com.example.diplomaapp.test.ClickInterface;
 import com.example.diplomaapp.test.RecyclerItemClickListener;
 
@@ -27,14 +26,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DoctorBookRecordsFragment extends Fragment implements ClickInterface {
+public class AdminShowAllDoctorsFragment extends Fragment implements ClickInterface {
 
-    public DoctorBookRecordsFragment(){
-        super(R.layout.fragment_list_records);
+    public AdminShowAllDoctorsFragment(){
+        super(R.layout.fragment_list_doctors);
     }
-    private RecyclerView rvRecords;
-    private RecordAdapter adapter;
-    private List<Record> records;
+    private RecyclerView rvDoctors;
+    private ClientDoctorAdapter adapter;
+    private List<Doctor> doctors;
 
     private String password;
     private String username;
@@ -49,63 +48,61 @@ public class DoctorBookRecordsFragment extends Fragment implements ClickInterfac
 
         }
 
-        rvRecords = view.findViewById(R.id.rvList);
+        rvDoctors = view.findViewById(R.id.rvDoctors);
 
         fillAdapter();
 
-        rvRecords.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(), rvRecords ,new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-//
-                        Fragment Fragment_Record_Info   =  new DoctorRecordInfoFragment();
+        rvDoctors.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), rvDoctors, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                        Fragment Fragment_Doctor_Info = new AdminChangeDoctorFragment();
                         FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.beginTransaction()
-                                .replace(R.id.fragmentContainerView3, Fragment_Record_Info, "TAG")
+                                .replace(R.id.fragmentContainer, Fragment_Doctor_Info, "TAG")
                                 .commit();
-                        Record record = records.get(position);
+                        Doctor doctor = doctors.get(position);
                         Bundle bundle = new Bundle();
                         bundle.putString("username", username);
                         bundle.putString("password", password);
-                        bundle.putParcelable("record",  record);  // Key, value
-                        Fragment_Record_Info.setArguments(bundle);
+                        bundle.putParcelable("doctor", doctor);  // Key, value
+                        Fragment_Doctor_Info.setArguments(bundle);
                     }
 
-                    @Override public void onLongItemClick(View view, int position) {
+                    @Override
+                    public void onLongItemClick(View view, int position) {
                         // do whatever
                     }
                 })
         );
-
-
-
-
     }
+
 
     private void fillAdapter(){
 
         String auth = createAuthToken(username, password);
 
+
         NetworkService networkService = NetworkService.getInstance();
-        DoctorUserApi api = networkService.getDoctorUserApi();
+        ClientApi api = networkService.getClientApi();
 
-        Call<List<Record>> call = api.getAllBookRecords(auth);
+        Call<List<Doctor>> call = api.getAllDoctors(auth);
 
-        call.enqueue(new Callback<List<Record>>() {
+        call.enqueue(new Callback<List<Doctor>>() {
             @Override
-            public void onResponse(Call<List<Record>> call, Response<List<Record>> response) {
-
-                records = response.body();
-                System.out.println(records.size());
+            public void onResponse(Call<List<Doctor>> call, Response<List<Doctor>> response) {
+                doctors = response.body();
                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
-                rvRecords.setHasFixedSize(true);
-                rvRecords.setLayoutManager(manager);
-                adapter = new RecordAdapter(getContext(), records);
-                rvRecords.setAdapter(adapter);
+                rvDoctors.setHasFixedSize(true);
+               rvDoctors.setLayoutManager(manager);
+                adapter = new ClientDoctorAdapter(getContext(), doctors);
+                rvDoctors.setAdapter(adapter);
                 System.out.println("test!!!!!!!");
             }
 
             @Override
-            public void onFailure(Call<List<Record>> call, Throwable t) {
+            public void onFailure(Call<List<Doctor>> call, Throwable t) {
                 System.out.println(t.toString());
             }
         });

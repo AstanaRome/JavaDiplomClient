@@ -55,26 +55,26 @@ public class DoctorAllVisitsFragment extends Fragment implements ClickInterface 
 
         fillAdapter();
 
-//        rvVisits.addOnItemTouchListener(
-//                new RecyclerItemClickListener(getContext(), rvVisits ,new RecyclerItemClickListener.OnItemClickListener() {
-//                    @Override public void onItemClick(View view, int position) {
-//                        Visit visit = visits.get(position);
-//                        Fragment Fragment_Record_Info   =  new ClientShowVisitInfo();
-//                        FragmentManager fragmentManager = getFragmentManager();
-//                        fragmentManager.beginTransaction()
-//                                .replace(R.id.fragmentContainerView2, Fragment_Record_Info, "TAG")
-//                                .commit();
-//
-//                        Bundle bundle = new Bundle();
-//                        bundle.putParcelable("visit",  visit);  // Key, value
-//                        Fragment_Record_Info.setArguments(bundle);
-//                    }
-//
-//                    @Override public void onLongItemClick(View view, int position) {
-//                        // do whatever
-//                    }
-//                })
-//        );
+        rvVisits.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), rvVisits ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        Visit visit = visits.get(position);
+                        Fragment Fragment_Record_Info   =  new DoctorVisitInfo();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainerView3, Fragment_Record_Info, "TAG")
+                                .commit();
+
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("visit",  visit);  // Key, value
+                        Fragment_Record_Info.setArguments(bundle);
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
     }
     private void fillAdapter(){
 

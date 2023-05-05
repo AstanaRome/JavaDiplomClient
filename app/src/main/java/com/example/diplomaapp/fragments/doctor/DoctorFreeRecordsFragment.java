@@ -57,24 +57,8 @@ public class DoctorFreeRecordsFragment extends Fragment implements ClickInterfac
 
         fillAdapter();
 
-        rvRecords.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(), rvRecords ,new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-                        Record record = adapter.getItem(position);
-                        Bundle args = new Bundle();
-                        args.putParcelable("record", record);
-                        args.putString("username", username);
-                        args.putString("password", password);
-                        ClientCustomDialogFragment dialog = new ClientCustomDialogFragment();
-                        dialog.setArguments(args);
-                        dialog.show(getFragmentManager(), "custom");
-                    }
 
-                    @Override public void onLongItemClick(View view, int position) {
-                        // do whatever
-                    }
-                })
-        );
+
 
         btnDoctorAddRecord.setOnClickListener(this::addRecordsFragment);
 

@@ -83,7 +83,6 @@
                 android:layout_marginTop="45dp"
                 android:text="@string/loginText"
                 android:textSize="30sp"
-                android:textStyle="italic"
                 android:typeface="monospace" />
 
         </RelativeLayout>

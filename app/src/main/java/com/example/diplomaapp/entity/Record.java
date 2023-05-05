@@ -8,9 +8,7 @@ import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.sql.Time;
-import java.time.LocalTime;
 import java.util.Date;
 
 public class Record implements Parcelable {
@@ -36,6 +34,10 @@ public class Record implements Parcelable {
     @Expose
     @SerializedName("doctor")
     private Doctor doctor;
+
+    @Expose
+    @SerializedName("enabled")
+    private boolean enabled;
 
 
     protected Record(Parcel in) {
@@ -99,19 +101,29 @@ public class Record implements Parcelable {
     public Record() {
     }
 
-    public Record(int id, Date record_day, Time record_time, User user, Doctor doctor) {
+    public Record(int id, Date record_day, Time record_time, User user, Doctor doctor, boolean enabled) {
         this.id = id;
         this.record_day = record_day;
         this.record_time = record_time;
         this.user = user;
         this.doctor = doctor;
+        this.enabled = enabled;
     }
 
-    public Record(Date record_day, Time record_time, User user, Doctor doctor) {
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Record(Date record_day, Time record_time, User user, Doctor doctor, boolean enabled) {
         this.record_day = record_day;
         this.record_time = record_time;
         this.user = user;
         this.doctor = doctor;
+        this.enabled = enabled;
     }
 
     //    public Record(Date record_day, LocalTime record_time, User user, Doctor doctor) {

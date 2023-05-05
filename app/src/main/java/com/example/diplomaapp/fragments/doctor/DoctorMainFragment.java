@@ -19,7 +19,6 @@ public class DoctorMainFragment extends Fragment{
     private ImageButton btnDoctorFreeRecords;
     private ImageButton btnDoctorBookedRecords;
     private ImageButton btnDoctorAllVisits;
-    private ImageButton btnDoctorAllClients;
 
     private String password;
     private String username;
@@ -31,7 +30,6 @@ public class DoctorMainFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         btnDoctorFreeRecords = view.findViewById(R.id.btnDoctorFreeRecords);
-        btnDoctorAllClients = view.findViewById(R.id.btnDoctorAllClients);
         btnDoctorAllVisits = view.findViewById(R.id.btnDoctorAllVisits);
         btnDoctorBookedRecords = view.findViewById(R.id.btnDoctorBookedRecords);
 

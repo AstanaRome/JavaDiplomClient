@@ -1,5 +1,6 @@
 package com.example.diplomaapp.fragments.admin;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,6 +18,8 @@ public class AdminMainFragment extends Fragment {
     private ImageButton btnShowAllRecordsAdmin;
     private ImageButton btnAddRecordAdmin;
 
+    private ImageButton btnAddChangeDoctorAdmin;
+
 
 
     private String password;
@@ -32,11 +35,14 @@ public class AdminMainFragment extends Fragment {
         btnAddUserAdmin = view.findViewById(R.id.btnClient);
         btnAddRecordAdmin = view.findViewById(R.id.btnAddRecordAdmin);
         btnShowAllRecordsAdmin = view.findViewById(R.id.btnShowAllRecordsAdmin);
+        btnAddChangeDoctorAdmin = view.findViewById(R.id.btnAddChangeDoctorAdmin);
+
 
         btnUsers.setOnClickListener(this::showUsersAdminFragment);
         btnAddUserAdmin.setOnClickListener(this::addUserAdminFragment);
         btnShowAllRecordsAdmin.setOnClickListener(this::ShowAllRecordsFragment);
         btnAddRecordAdmin.setOnClickListener(this::addRecordAdminFragment);
+        btnAddChangeDoctorAdmin.setOnClickListener(this::showAllDoctorsFragment);
         Bundle bundle = getArguments();
         if (bundle != null) {
             username = bundle.getString("username");
@@ -53,6 +59,18 @@ public class AdminMainFragment extends Fragment {
         bundle.putString("password", password);
 
         Fragment Fragment_Second=new AdminShowAllUsersFragment();
+        Fragment_Second.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, Fragment_Second, "TAG")
+                .commit();
+    }
+    private void showAllDoctorsFragment(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+        bundle.putString("password", password);
+
+        Fragment Fragment_Second=new AdminShowAllDoctorsFragment();
         Fragment_Second.setArguments(bundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()

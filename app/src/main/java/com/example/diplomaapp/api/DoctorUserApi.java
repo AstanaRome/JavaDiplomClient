@@ -23,6 +23,9 @@ public interface DoctorUserApi {
 
     @POST("/doctor/free")
     Call<Record> addRecord(@Header("Authorization") String authToken, @Body Record record);
+
+    @POST("/doctor/visit")
+    Call<Visit> addVisit(@Header("Authorization") String authToken, @Body Visit visit);
     @GET("/doctor/book")
     Call<List<Record>> getAllBookRecords(@Header("Authorization") String authToken);
 

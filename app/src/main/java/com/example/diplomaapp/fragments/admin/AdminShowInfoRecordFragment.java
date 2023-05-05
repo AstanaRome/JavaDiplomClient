@@ -82,8 +82,11 @@ public class AdminShowInfoRecordFragment extends Fragment {
             System.out.println(password);
         }
 
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(record.getRecord_day());
-        tvAdminRecordShowInfoDay.setText(date);
+        if (record.getRecord_day() != null){
+            String date = new SimpleDateFormat("yyyy-MM-dd").format(record.getRecord_day());
+            tvAdminRecordShowInfoDay.setText(date);
+        }
+
 
         btnAdminRecordFullInfoSave.setOnClickListener(this::saveClient);
 
@@ -282,8 +285,11 @@ public class AdminShowInfoRecordFragment extends Fragment {
                         android.R.layout.simple_spinner_item, names);
                 adapter_user.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spAdminRecordShowInfoUser.setAdapter(adapter_user);
-                int index = adapter_user.getPosition(record.getUser().getFullName());
-                spAdminRecordShowInfoUser.setSelection(index);
+                if(record.getUser()!= null){
+                    int index = adapter_user.getPosition(record.getUser().getFullName());
+                    spAdminRecordShowInfoUser.setSelection(index);
+                }
+
 
             }
 

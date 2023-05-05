@@ -42,19 +42,21 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void authUser(View view) {
-          String username = "alex";
-          String password = "alex";
 
+
+    public void authUser(View view) {
+//          String username = "alex";
+//          String password = "alex";
+//
 //        String username = "patrick";
 //        String password = "patrick";
-
+//
 //        String username = "admin";
 //        String password = "admin";
 
 //
-//        String password = etPassword.getText().toString();
-//        String username = etLogin.getText().toString();
+        String password = etPassword.getText().toString();
+        String username = etLogin.getText().toString();
 
         String authToken = AuthToken.createAuthToken(username, password);
 

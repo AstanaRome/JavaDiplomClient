@@ -19,12 +19,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.diplomaapp.R;
+import com.example.diplomaapp.adapters.MyErrorMessage;
 import com.example.diplomaapp.api.NetworkService;
 import com.example.diplomaapp.api.RoleApi;
 import com.example.diplomaapp.api.UserApi;
 import com.example.diplomaapp.entity.Role;
 import com.example.diplomaapp.entity.User;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +39,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import okhttp3.ResponseBody;
+import okhttp3.internal.http2.ErrorCode;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -192,18 +200,20 @@ public class AdminAddUserFragment extends Fragment {
 
         NetworkService networkService = NetworkService.getInstance();
         UserApi api = networkService.getUserApi();
-        Call<String> call = api.saveUser(auth, user);
+        Call<ResponseBody> call = api.saveUser(auth, user);
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                System.out.println(response.body().toString());
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+
+
                 Toast.makeText(getContext(), "Succesful",
                         Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
             }
         });
 
